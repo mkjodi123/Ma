@@ -22,7 +22,7 @@ mongo_client = AsyncIOMotorClient(MONGO_URI)
 db = mongo_client[DB_NAME]
 users_collection = db[COLLECTION_NAME]
 
-async def get_u /bgmiser(user_id):
+async def get_user(user_id):
     """Fetch user data from MongoDB."""
     user = await users_collection.find_one({"user_id": user_id})
     if not user:
