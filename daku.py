@@ -43,7 +43,7 @@ async def start(update: Update, context: CallbackContext):
         "*❄️ WELCOME TO HITLER 😈 DDOS BOT ❄️*\n\n"
         "*🔥 Yeh bot apko deta hai hacking ke maidan mein asli mazza! 🔥*\n\n"
         "*✨ Key Features: ✨*\n"
-        "🚀 *𝘼𝙩𝙩𝙖𝙘𝙠 𝙠𝙖𝙧𝙤 𝙖𝙥𝙣𝙚 𝙤𝙥𝙥𝙤𝙣𝙚𝙣𝙩𝙨 𝙥𝙖𝙧 𝘽𝙜𝙢𝙞 𝙈𝙚 /attack*\n"
+        "🚀 *𝘼𝙩𝙩𝙖𝙘𝙠 𝙠𝙖𝙧𝙤 𝙖𝙥𝙣𝙚 𝙤𝙥𝙥𝙤𝙣𝙚𝙣𝙩𝙨 𝙥𝙖𝙧 𝘽𝙜𝙢𝙞 𝙈𝙚 /bgmi *\n"
         "🏦 *𝘼𝙘𝙘𝙤𝙪𝙣𝙩 𝙠𝙖 𝙗𝙖𝙡𝙖𝙣𝙘𝙚 𝙖𝙪𝙧 𝙖𝙥𝙥𝙧𝙤𝙫𝙖𝙡 𝙨𝙩𝙖𝙩𝙪𝙨 𝙘𝙝𝙚𝙘𝙠 𝙠𝙖𝙧𝙤 /myinfo*\n"
         "🤡 *𝘼𝙪𝙧 𝙝𝙖𝙘𝙠𝙚𝙧 𝙗𝙖𝙣𝙣𝙚 𝙠𝙚 𝙨𝙖𝙥𝙣𝙤 𝙠𝙤 𝙠𝙖𝙧𝙡𝙤 𝙥𝙤𝙤𝙧𝙖! 😂*\n\n"
         "*⚠️ Kaise Use Kare? ⚠️*\n"
@@ -80,8 +80,8 @@ async def mon(update: Update, context: CallbackContext):
         await update_user(target_user_id, new_balance)
         await context.bot.send_message(chat_id=chat_id, text=f"*✅ User {target_user_id} ke {coins} coins kaat diye. Balance: {new_balance}.*", parse_mode='Markdown')
 
-async def attack(update: Update, context: CallbackContext):
-    global attack_in_progress, attack_end_time, bot_start_time
+async def bgmi(update: Update, context: CallbackContext):
+    global bgmi_in_progress, bgmi_end_time, bot_start_time
 
     chat_id = update.effective_chat.id
     user_id = update.effective_user.id
@@ -89,7 +89,7 @@ async def attack(update: Update, context: CallbackContext):
 
     user = await get_user(user_id)
 
-    if user["coins"] < COINS_REQUIRED_PER_ATTACK:
+    if user["coins"] < COINS_REQUIRED_PER_BGMI:
         await context.bot.send_message(
             chat_id=chat_id,
             text="*💰 Bhai, tere paas toh coins nahi hai! Pehle admin ke paas ja aur coins le aa. 😂 DM:- @X_HITLER*",
@@ -165,9 +165,9 @@ async def attack(update: Update, context: CallbackContext):
         parse_mode='Markdown'
     )
 
-    asyncio.create_task(run_attack(chat_id, ip, port, duration, context))
+    asyncio.create_task(run_bgmi(chat_id, ip, port, duration, context))
 
-async def run_attack(chat_id, ip, port, duration, context):
+async def run_bgmi(chat_id, ip, port, duration, context):
     global attack_in_progress, attack_end_time
     attack_in_progress = True
 
@@ -295,7 +295,7 @@ def main():
     application = Application.builder().token(TELEGRAM_BOT_TOKEN).build()
     application.add_handler(CommandHandler("start", start))
     application.add_handler(CommandHandler("mon", mon))
-    application.add_handler(CommandHandler("attack", attack))
+    application.add_handler(CommandHandler("bgmi", bgmi))
     application.add_handler(CommandHandler("myinfo", myinfo))
     application.add_handler(CommandHandler("help", help))
     application.add_handler(CommandHandler("uptime", uptime))
