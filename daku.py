@@ -9,8 +9,8 @@ attack_in_progress = False
 current_attack = None  # Store details of the current attack
 attack_history = []  # Store attack logs
 
-TELEGRAM_BOT_TOKEN = '7830145261:AAFAiB6Pxzq2QI8NRA7KJg6q3v-LR1gUFu8'
-ADMIN_USER_ID = 5993470748
+TELEGRAM_BOT_TOKEN = '8114003472:AAHFTm_EARkF2NRu2ZUr8_Jh9YI_cBTTTjk'
+ADMIN_USER_ID = 7055982556
 MONGO_URI = "mongodb+srv://Kamisama:Kamisama@kamisama.m6kon.mongodb.net/"
 DB_NAME = "Roxz"
 COLLECTION_NAME = "users"
@@ -22,7 +22,7 @@ mongo_client = AsyncIOMotorClient(MONGO_URI)
 db = mongo_client[DB_NAME]
 users_collection = db[COLLECTION_NAME]
 
-async def get_user(user_id):
+async def get_u /bgmiser(user_id):
     """Fetch user data from MongoDB."""
     user = await users_collection.find_one({"user_id": user_id})
     if not user:
@@ -40,7 +40,7 @@ async def update_user(user_id, coins):
 async def start(update: Update, context: CallbackContext):
     chat_id = update.effective_chat.id
     message = (
-        "*❄️ WELCOME TO MAGMA 😈 DDOS BOT ❄️*\n\n"
+        "*❄️ WELCOME TO HITLER 😈 DDOS BOT ❄️*\n\n"
         "*🔥 Yeh bot apko deta hai hacking ke maidan mein asli mazza! 🔥*\n\n"
         "*✨ Key Features: ✨*\n"
         "🚀 *𝘼𝙩𝙩𝙖𝙘𝙠 𝙠𝙖𝙧𝙤 𝙖𝙥𝙣𝙚 𝙤𝙥𝙥𝙤𝙣𝙚𝙣𝙩𝙨 𝙥𝙖𝙧 𝘽𝙜𝙢𝙞 𝙈𝙚 /attack*\n"
@@ -49,7 +49,7 @@ async def start(update: Update, context: CallbackContext):
         "*⚠️ Kaise Use Kare? ⚠️*\n"
         "*Commands ka use karo aur commands ka pura list dekhne ke liye type karo: /help*\n\n"
         "*💬 Queries or Issues? 💬*\n"
-        "*Contact Admin: @MAGMA_EX*"
+        "*Contact Admin: @X_HITLER*"
     )
     await context.bot.send_message(chat_id=chat_id, text=message, parse_mode='Markdown')
 
@@ -92,7 +92,7 @@ async def attack(update: Update, context: CallbackContext):
     if user["coins"] < COINS_REQUIRED_PER_ATTACK:
         await context.bot.send_message(
             chat_id=chat_id,
-            text="*💰 Bhai, tere paas toh coins nahi hai! Pehle admin ke paas ja aur coins le aa. 😂 DM:- @MAGMA_EX*",
+            text="*💰 Bhai, tere paas toh coins nahi hai! Pehle admin ke paas ja aur coins le aa. 😂 DM:- @X_HITLER*",
             parse_mode='Markdown'
         )
         return
@@ -111,8 +111,8 @@ async def attack(update: Update, context: CallbackContext):
             chat_id=chat_id,
             text=(
                 "*❌ Usage galat hai! Command ka sahi format yeh hai:*\n"
-                "*👉 /attack <ip> <port> <duration>*\n"
-                "*📌 Example: /attack 192.168.1.1 26547 240*"
+                "*👉 /bgmi<ip> <port> <duration>*\n"
+                "*📌 Example:  /bgmi192.168.1.1 26547 240*"
             ),
             parse_mode='Markdown'
         )
@@ -230,12 +230,12 @@ async def myinfo(update: Update, context: CallbackContext):
 async def help(update: Update, context: CallbackContext):
     chat_id = update.effective_chat.id
     message = (
-        "*🛠️ @MAGMA_EX VIP DDOS Bot Help Menu 🛠️*\n\n"
+        "*🛠️ @X_HITLER VIP DDOS Bot Help Menu 🛠️*\n\n"
         "🌟 *Yahan hai sab kuch jo tumhe chahiye!* 🌟\n\n"
         "📜 *Available Commands:* 📜\n\n"
-        "1️⃣ *🔥 /attack <ip> <port> <duration>*\n"
+        "1️⃣ *🔥  /bgmi<ip> <port> <duration>*\n"
         "   - *Is command ka use karke tum attack laga sakte ho.*\n"
-        "   - *Example: /attack 192.168.1.1 20876 240*\n"
+        "   - *Example:  /bgmi192.168.1.1 20876 240*\n"
         "   - *📝 Note: Duration 240 seconds se zyada nahi ho sakta.*\n\n"
         "2️⃣ *💳 /myinfo*\n"
         "   - *Apne account ka status aur coins check karne ke liye.*\n"
@@ -248,7 +248,7 @@ async def help(update: Update, context: CallbackContext):
         "   - *Ab ye toh tum already use kar rahe ho! Yeh command bot ke saare features explain karta hai.*\n\n"
         "🚨 *𝐈𝐦𝐩𝐨𝐫𝐭𝐚𝐧𝐭 𝐓𝐢𝐩𝐬:* 🚨\n"
         "- *BOT REPLY NAA DE ISKA MATLAB KOI AUR BNDA ATTACK LAGYA HAI SO WAIT.*\n"
-        "- *Agar koi dikkat aaye toh admin ko contact karo: @MAGMA_EX*\n\n"
+        "- *Agar koi dikkat aaye toh admin ko contact karo: @X_HITLER*\n\n"
         "💥 *Ab jao aur hacker banne ka natak shuru karo!* 💥"
     )
     await context.bot.send_message(chat_id=chat_id, text=message, parse_mode='Markdown')
