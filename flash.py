@@ -297,7 +297,7 @@ def process_chudai_details(message):
             else:
                 # Log the chudai with correct variable name
                 log_command(user_id, target, port, chudai_time)
-                full_command = f"./vpsbest1 {target} {port} {chudai_time} 9 1200"  # ✅ Correct variable name
+                full_command = f"./vpsbest1 {target} {port} {chudai_time} {9} {1200}"  # ✅ Correct variable name
 
                 username = message.chat.username or "No username"
 
