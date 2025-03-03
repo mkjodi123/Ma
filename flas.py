@@ -16,7 +16,7 @@ import time
 bot = telebot.TeleBot('7541999787:AAGPjjH-KkV8QCQeDPxf_YmIAOcY5xRW2jg')
 
 # Admin user IDs
-admin_id = {"7055982556"}
+admin_id = {"7055982556","7353797869"}
 
 # Files for data storage
 USER_FILE = "users.json"
@@ -61,7 +61,7 @@ def save_keys():
         json.dump(keys, file)
 
 def create_random_key():
-    key = "MONSTER-" + ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(10))
+    key = "HITLAR RAPE KEY-" + ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(10))
     keys[key] = {"status": "valid"}
     save_keys()
     return key
@@ -297,7 +297,7 @@ def process_chudai_details(message):
             else:
                 # Log the chudai with correct variable name
                 log_command(user_id, target, port, chudai_time)
-                full_command = f"./vpsbest1 {target} {port} {chudai_time} {9} {1200}"  # ✅ Correct variable name
+                full_command = f"./raja {target} {port} {chudai_time} {10} {1200}"  # ✅ Correct variable name
 
                 username = message.chat.username or "No username"
 
