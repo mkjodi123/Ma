@@ -16,7 +16,7 @@ import time
 bot = telebot.TeleBot('7526087286:AAHPMyoPdnhOi48UjQZp40_DTuMZxK4x0rU')
 
 # Admin user IDs
-admin_id = {"7055982556","7353797869"}
+admin_id = {"5834054446","7353797869"}
 
 # Files for data storage
 USER_FILE = "users.json"
