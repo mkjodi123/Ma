@@ -6,12 +6,14 @@ import re
 import requests
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+from selenium.webdriver.chrome.service import Service
+from webdriver_manager.chrome import ChromeDriverManager
 from faker import Faker
 
-# Telegram Bot Token (replace with your token)
+# Telegram Bot Token (Replace with your actual bot token)
 BOT_TOKEN = "8197356432:AAEr4OsAoVSa87jzmU_7-QEfWiuFY_50KdQ"
 
-# Admin Telegram ID (replace with your Telegram user ID)
+# Admin Telegram ID (Replace with your Telegram ID)
 ADMIN_ID = 7353797869  # Replace with your Telegram user ID
 
 bot = telebot.TeleBot(BOT_TOKEN)
@@ -22,11 +24,11 @@ user_data = {}
 # Initialize Faker for random details
 fake = Faker()
 
-# Opera WebDriver Setup for Linux
-# Ensure that the OperaDriver binary (Linux version) is placed in /usr/local/bin/ or update the path accordingly.
-opera_driver_path = "/usr/local/bin/operadriver"
+# Setup ChromeDriver (Auto-Download)
 options = webdriver.ChromeOptions()
-options.binary_location = "/usr/bin/opera"  # Update this if your Opera binary is in a different location
+options.add_argument("--headless")  # Run without GUI
+options.add_argument("--no-sandbox")
+options.add_argument("--disable-dev-shm-usage")
 
 # Check if the user is admin
 def is_admin(chat_id):
@@ -44,7 +46,7 @@ def send_welcome(message):
     send_gmail_button = telebot.types.KeyboardButton("Send Gmail")
     send_password_button = telebot.types.KeyboardButton("Send Password")
     markup.add(send_gmail_button, send_password_button)
-    
+
     bot.send_message(chat_id, "Welcome, Admin! Use the buttons below to enter Gmail and password.", reply_markup=markup)
 
 # Handle "Send Gmail" button click
@@ -95,9 +97,9 @@ def register_cloudways(chat_id):
     company = fake.company()
     website = fake.url()
 
-    # Start Web Automation in Opera
+    # Start Web Automation in Headless Chromium
     bot.send_message(chat_id, "⏳ Registering account... Please wait.")
-    driver = webdriver.Opera(executable_path=opera_driver_path, options=options)
+    driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
     driver.get("https://www.cloudways.com/en/free-trial.php")
     time.sleep(3)
 
@@ -120,16 +122,13 @@ def register_cloudways(chat_id):
 
     # Email Verification Process
     verification_link = get_verification_link(email_address, email_password)
-    
+
     if verification_link:
         bot.send_message(chat_id, f"🔗 Verification link found: {verification_link}")
-        
-        # Open verification link in Opera
-        driver = webdriver.Opera(executable_path=opera_driver_path, options=options)
+        driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
         driver.get(verification_link)
         time.sleep(5)
         driver.quit()
-        
         bot.send_message(chat_id, "✅ Cloudways account verified successfully!")
     else:
         bot.send_message(chat_id, "❌ No verification email found. Please check manually.")
@@ -161,10 +160,10 @@ def get_verification_link(email_address, email_password):
             match = re.search(r'href="(https://[^\s]+cloudways.com[^\s]+verify[^\s]+)"', email_body)
             if match:
                 return match.group(1)
-    
+
     except Exception as e:
         bot.send_message(chat_id, f"⚠️ Error fetching verification email: {str(e)}")
-    
+
     return None
 
 # Start the Telegram bot polling
