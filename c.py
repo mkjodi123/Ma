@@ -3,7 +3,6 @@ import time
 import imapclient
 import email
 import re
-import requests
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.service import Service
@@ -24,7 +23,7 @@ user_data = {}
 # Initialize Faker for random details
 fake = Faker()
 
-# Setup ChromeDriver (Auto-Download)
+# Setup Chrome Options
 options = webdriver.ChromeOptions()
 options.add_argument("--headless")  # Run without GUI
 options.add_argument("--no-sandbox")
@@ -99,7 +98,10 @@ def register_cloudways(chat_id):
 
     # Start Web Automation in Headless Chromium
     bot.send_message(chat_id, "⏳ Registering account... Please wait.")
-    driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
+    
+    chrome_driver_path = ChromeDriverManager().install()
+    driver = webdriver.Chrome(executable_path=chrome_driver_path, options=options)
+    
     driver.get("https://www.cloudways.com/en/free-trial.php")
     time.sleep(3)
 
@@ -125,7 +127,7 @@ def register_cloudways(chat_id):
 
     if verification_link:
         bot.send_message(chat_id, f"🔗 Verification link found: {verification_link}")
-        driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
+        driver = webdriver.Chrome(executable_path=chrome_driver_path, options=options)
         driver.get(verification_link)
         time.sleep(5)
         driver.quit()
