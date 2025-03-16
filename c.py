@@ -1,66 +1,56 @@
-import telebot
-import time
+import os
+from dotenv import load_dotenv
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
-from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.common.by import By
+import time
 from faker import Faker
+from telegram import Bot
 
-# Replace with your actual Telegram Bot Token & Admin ID
-BOT_TOKEN = "8197356432:AAEr4OsAoVSa87jzmU_7-QEfWiuFY_50KdQ"
-ADMIN_ID = 7353797869
+# Load environment variables
+load_dotenv()
+BOT_TOKEN = os.getenv("8197356432:AAHY54797qaRZen5ImUPAFkP33jXPZfDXkA")
+ADMIN_ID = os.getenv("7353797869")
 
-# Initialize Bot
-bot = telebot.TeleBot(BOT_TOKEN)
-
-# Generate Fake Data
 fake = Faker()
 
-# Configure Chrome for Headless Mode
-chrome_options = Options()
-chrome_options.add_argument("--headless")  # Run without opening a browser
-chrome_options.add_argument("--no-sandbox")
-chrome_options.add_argument("--disable-dev-shm-usage")
+def send_telegram_message(message):
+    """ Sends a message to Telegram admin. """
+    bot = Bot(token=BOT_TOKEN)
+    bot.send_message(chat_id=ADMIN_ID, text=message)
 
-# Start Chrome WebDriver (Without Installing Chrome Manually)
-def get_driver():
-    return webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=chrome_options)
+def create_cloudways_account(email):
+    """ Automates Cloudways account creation and sends details via Telegram. """
+    full_name = fake.name()
+    password = fake.password(length=12, special_chars=True)
 
-# Function to Register on Cloudways
-def register_cloudways(chat_id, email, password):
-    driver = get_driver()
-    driver.get("https://www.cloudways.com/en/signup")
+    chrome_options = Options()
+    chrome_options.add_argument("--headless")  # Run without UI
+    chrome_options.add_argument("--no-sandbox")
+    chrome_options.add_argument("--disable-dev-shm-usage")
 
-    # Auto-fill Registration Form
-    driver.find_element("name", "email").send_keys(email)
-    driver.find_element("name", "password").send_keys(password)
-    driver.find_element("name", "first_name").send_keys(fake.first_name())
-    driver.find_element("name", "last_name").send_keys(fake.last_name())
-    driver.find_element("name", "phone").send_keys(fake.phone_number())
-    driver.find_element("name", "company").send_keys(fake.company())
-    
-    time.sleep(2)  # Wait for form validation
-    driver.find_element("xpath", "//button[contains(text(),'Start Free')]").click()
+    service = Service("/usr/local/bin/chromedriver")
+    driver = webdriver.Chrome(service=service, options=chrome_options)
 
-    time.sleep(5)  # Wait for submission
-    driver.quit()
+    try:
+        driver.get("https://platform.cloudways.com/signup")
+        time.sleep(3)
 
-    bot.send_message(chat_id, "✅ Cloudways Account Created Successfully!")
+        driver.find_element(By.NAME, "email").send_keys(email)
+        driver.find_element(By.NAME, "name").send_keys(full_name)
+        driver.find_element(By.NAME, "password").send_keys(password)
+        driver.find_element(By.XPATH, "//button[contains(text(), 'Get Started')]").click()
 
-# Handle "/start" Command
-@bot.message_handler(commands=['start'])
-def send_welcome(message):
-    bot.send_message(message.chat.id, "Welcome! Send your Gmail & Password to create an account.")
+        message = f"✅ **Cloudways Account Created!**\n📧 Email: {email}\n👤 Name: {full_name}\n🔑 Password: {password}"
+        send_telegram_message(message)
 
-# Handle User Input
-@bot.message_handler(func=lambda message: True)
-def handle_message(message):
-    if "@" in message.text and "." in message.text:
-        email = message.text
-        bot.send_message(message.chat.id, "✅ Email received! Now send your password.")
-        bot.register_next_step_handler(message, lambda msg: register_cloudways(message.chat.id, email, msg.text))
-    else:
-        bot.send_message(message.chat.id, "❌ Invalid email. Please enter a valid Gmail.")
+        print("Account details sent to Telegram!")
+        time.sleep(10)
 
-# Run the Bot
-bot.polling()
+    finally:
+        driver.quit()
+
+# Run the bot
+user_email = input("Enter your Gmail: ")
+create_cloudways_account(user_email)
